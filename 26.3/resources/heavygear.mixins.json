@@ -1,0 +1,42 @@
+{
+    "required":  true,
+    "minVersion":  "0.8",
+    "compatibilityLevel":  "JAVA_21",
+    "package":  "com.cecilia.heavygear.mixin",
+    "mixins":  [
+                   "MaceItemMixin",
+                   "HeavySmashMixin",
+                   "RiptideContactMixin",
+                   "RiptideContactNoBurstMixin",
+                   "DiveSmashDamageMixin",
+                   "DiveWindBurstMixin",
+                   "DiveStabMixin",
+                   "PlayerTickDiveMixin",
+                   "EntitySharedFlagAccessor",
+                   "FireworkRocketAccessor",
+                   "ThrownTridentSmashMixin",
+                   "SmithingEnchantMergeMixin",
+                   "AbstractArrowWeaponAccessor",
+                   "CreativeHeavyAmmoMixin",
+                   "VanillaItemEquivalenceMixin",
+                   "AbstractArrowPierceAccessor",
+                   "HeavyDeathMessageMixin",
+                   "HeavyBobberSmashMixin",
+                   "HeavyRodMeleeGuardMixin",
+                   "ArrowEffectSmashMixin",
+                   "MaceSmashSupportMixin",
+                   "EffectTopUpMixin",
+                   "EffectPlayerTopUpMixin",
+                   "EnchantmentCompatibilityMixin",
+                   "EcamAttackMixin",
+                   "EcamTooltipMixin",
+                   "CompressedWindChargeMarkerMixin",
+                   "CompressedWindChargeKnockbackMixin",
+                   "CompressedWindChargeFallMixin",
+                   "PlayerFlyHigherMixin",
+                   "RiptideLungeGuardMixin"
+               ],
+    "injectors":  {
+                      "defaultRequire":  1
+                  }
+}

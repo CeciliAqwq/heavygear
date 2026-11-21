@@ -1,0 +1,54 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.dir }} (Java ${{ matrix.java }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - project: v1_21_11
+            dir: 1.21.11
+            java: 21
+          - project: v26_1_2
+            dir: 26.1.2
+            java: 25
+          - project: v26_2
+            dir: 26.2
+            java: 25
+          - project: v26_3
+            dir: 26.3
+            java: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make the wrapper executable
+        run: chmod +x gradlew
+
+      - name: Build ${{ matrix.dir }}
+        run: ./gradlew :${{ matrix.project }}:build --stacktrace
+
+      - name: Upload ${{ matrix.dir }} jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: heavygear-${{ matrix.dir }}
+          path: |
+            ${{ matrix.dir }}/build/libs/*.jar
+          if-no-files-found: error

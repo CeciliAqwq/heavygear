@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "heavygear",
+  "version": "1.0.0",
+  "name": "Heavy Gear",
+  "description": "Heavy Gear锛堟矇閲嶈澶囷級: netherite-grade heavy weapons and armour with mace smashes, meteor landings, elytra dive bombing and the twin-mode Spear of Destiny.",
+  "authors": [
+    "CeciliAqwq_"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.cecilia.heavygear.HeavyGearMod"
+    ],
+    "client": [
+      "com.cecilia.heavygear.client.HeavyGearClient"
+    ]
+  },
+  "mixins": [
+    "heavygear.mixins.json",
+    "heavygear.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.20.0",
+    "fabric-api": "*",
+    "minecraft": ">=26.1.2 <26.2",
+    "java": ">=25"
+  }
+}

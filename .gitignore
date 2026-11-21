@@ -1,0 +1,28 @@
+# --- Gradle / build output ---------------------------------------------------
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+run/
+
+# --- IDE ---------------------------------------------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# --- local development helpers (not part of the published source) ------------
+.hgtest/
+**/stub/
+
+# --- deliverables (published as GitHub releases / Modrinth versions) ---------
+dist/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# --- misc --------------------------------------------------------------------
+*.log
+logs/

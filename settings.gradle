@@ -1,0 +1,19 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'heavygear'
+
+// The folder names contain dots (1.21.11, 26.1.2 ...), so the Gradle project names avoid them.
+include 'v1_21_11', 'v26_1_2', 'v26_2', 'v26_3'
+project(':v1_21_11').projectDir = file('1.21.11')
+project(':v26_1_2').projectDir = file('26.1.2')
+project(':v26_2').projectDir = file('26.2')
+project(':v26_3').projectDir = file('26.3')

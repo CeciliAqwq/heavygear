@@ -1,0 +1,46 @@
+plugins {
+    id 'fabric-loom' version "${loom_version}"
+}
+
+version = "${mod_version}+26.2"
+
+dependencies {
+    minecraft "com.mojang:minecraft:26.2"
+    modImplementation "net.fabricmc:fabric-loader:0.19.5"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.160.0+26.2"
+
+    // Minecraft itself is compiled against these annotations; javac wants them on the classpath.
+    compileOnly 'org.jspecify:jspecify:1.0.0'
+    compileOnly 'org.jetbrains:annotations:26.0.1'
+}
+
+// Shared sources live one level up: common/ (all four versions) and common26/ (the three 26.x
+// versions). Only the files that really differ per version are kept in this folder, so the four
+// versions no longer duplicate ~70 identical classes and ~150 identical assets.
+sourceSets {
+    main {
+        java { srcDirs = ['../common/src', '../common26/src', 'src'] }
+        resources { srcDirs = ['../common/resources', '../common26/resources', 'resources'] }
+    }
+}
+
+loom {
+    mods {
+        heavygear {
+            sourceSet sourceSets.main
+        }
+    }
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+    }
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(25) }
+    withSourcesJar()
+}
