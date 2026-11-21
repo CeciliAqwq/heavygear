@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: ${{ matrix.dir }} (Java ${{ matrix.java }})
+    name: ${{ matrix.dir }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,25 +16,30 @@ jobs:
         include:
           - project: v1_21_11
             dir: 1.21.11
-            java: 21
           - project: v26_1_2
             dir: 26.1.2
-            java: 25
           - project: v26_2
             dir: 26.2
-            java: 25
           - project: v26_3
             dir: 26.3
-            java: 25
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK ${{ matrix.java }}
+      # Every subproject is configured for every task, so the JVM running Gradle has to satisfy the
+      # highest Minecraft requirement (26.x needs Java 25). The per-version compile JDK comes from the
+      # toolchain declared in each build.gradle, which is why JDK 21 is installed as well.
+      - name: Set up JDK 21 (toolchain for 1.21.11)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: ${{ matrix.java }}
+          java-version: '21'
+
+      - name: Set up JDK 25 (runs Gradle)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -48,7 +53,7 @@ jobs:
           ./gradlew --version
 
       - name: Build ${{ matrix.dir }}
-        run: ./gradlew :${{ matrix.project }}:build --stacktrace --info
+        run: ./gradlew :${{ matrix.project }}:build --stacktrace
 
       - name: Upload ${{ matrix.dir }} jar
         uses: actions/upload-artifact@v4
