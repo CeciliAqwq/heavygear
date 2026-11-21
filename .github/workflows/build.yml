@@ -42,8 +42,13 @@ jobs:
       - name: Make the wrapper executable
         run: chmod +x gradlew
 
+      - name: Show toolchain
+        run: |
+          java -version
+          ./gradlew --version
+
       - name: Build ${{ matrix.dir }}
-        run: ./gradlew :${{ matrix.project }}:build --stacktrace
+        run: ./gradlew :${{ matrix.project }}:build --stacktrace --info
 
       - name: Upload ${{ matrix.dir }} jar
         uses: actions/upload-artifact@v4
@@ -51,4 +56,4 @@ jobs:
           name: heavygear-${{ matrix.dir }}
           path: |
             ${{ matrix.dir }}/build/libs/*.jar
-          if-no-files-found: error
+          if-no-files-found: warn

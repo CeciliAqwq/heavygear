@@ -6,6 +6,11 @@ version = "${mod_version}+26.1.2"
 
 dependencies {
     minecraft "com.mojang:minecraft:26.1.2"
+
+    // 26.x ships an unobfuscated jar and Mojang publishes no mappings for it, but loom still refuses to
+    // configure a project whose `mappings` configuration is empty. `mappings/identity.tiny` is a tiny v2
+    // header with no entries, i.e. an identity mapping: it satisfies loom and leaves every name alone.
+    mappings files('mappings/identity.tiny')
     modImplementation "net.fabricmc:fabric-loader:0.20.1"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.155.3+26.1.2"
 
