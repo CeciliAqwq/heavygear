@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.client.renderer.entity.ThrownTridentRenderer;
 import net.minecraft.world.InteractionHand;
-import org.lwjgl.glfw.GLFW;
 
 public class HeavyGearClient implements ClientModInitializer {
     public static final String THROW_KEY_ID = "key.heavygear.throw";
@@ -21,7 +20,9 @@ public class HeavyGearClient implements ClientModInitializer {
     public static final KeyMapping THROW_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             THROW_KEY_ID,
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_V,
+            // 86 = keyboard code for V (GLFW_KEY_V), written as a literal so that no LWJGL
+            // module is needed on the compile classpath (26.3 no longer ships org.lwjgl.glfw).
+            86,
             KeyMapping.Category.GAMEPLAY
     ));
 
